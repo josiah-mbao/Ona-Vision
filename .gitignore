@@ -1,0 +1,19 @@
+# Ignore Python virtual environments
+venv/
+.env
+
+# Ignore compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore large files
+*.mp4
+*.avi
+*.mov
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+*.swp
+
