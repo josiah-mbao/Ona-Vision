@@ -30,7 +30,7 @@ while True:
     frame = pickle.loads(frame_data)
 
     # Show the video with bounding boxes
-    cv2.imshow("Live Object Detection", frame)
+    cv2.imshow("Ona Vision - Live Object Detection", frame)
 
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break

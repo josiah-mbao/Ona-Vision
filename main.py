@@ -25,8 +25,9 @@ while True:
     if not ret:
         break  # Exit if no frame is captured
 
+    small_frame = cv2.resize(frame, (640, 480))
     # Run object detection on the frame
-    results = model(frame)
+    results = model(small_frame)
 
     # Draw bounding boxes and labels on detected objects
     for result in results:
