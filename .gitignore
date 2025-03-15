@@ -1,5 +1,6 @@
 # Ignore Python virtual environments
 venv/
+test_env/
 .env
 
 # Ignore compiled files
@@ -17,4 +18,4 @@ __pycache__/
 .idea/
 *.swp
 
-download-model.py
+download_model.py
