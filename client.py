@@ -37,4 +37,3 @@ while True:
 
 client_socket.close()
 cv2.destroyAllWindows()
-
