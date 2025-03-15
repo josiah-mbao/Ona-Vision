@@ -1,11 +1,18 @@
-import cv2
+"""
+Real-time object detection using YOLOv8 and OpenCV.
+
+This script initializes a webcam, runs YOLOv8 object detection, and streams
+the processed frames to a client over a socket connection.
+"""
+
 import socket
 import pickle
 import struct
+import cv2
 from ultralytics import YOLO
 
 # Load YOLOv8 model
-model = YOLO("yolov8n.pt")  # Make sure you have this model downloaded
+model = YOLO("yolov8n.pt")  # Ensure this model is downloaded
 
 # Initialize webcam
 cap = cv2.VideoCapture(0)  # 0 for laptop webcam, 1+ for external cameras
@@ -18,6 +25,12 @@ print("Waiting for a client to connect...")
 
 client_socket, addr = server_socket.accept()
 print(f"Client connected from {addr}")
+
+# Define text properties
+FONT_SCALE = 1  # Increase size
+FONT_THICKNESS = 2  # Make bolder
+TEXT_COLOR = (255, 255, 255)  # White text
+OUTLINE_COLOR = (0, 0, 0)  # Black outline
 
 while True:
     ret, frame = cap.read()
@@ -37,28 +50,22 @@ while True:
             # Get label text
             label = result.names[int(box.cls[0])]  # Object label
 
-            # Define text properties
-            font_scale = 1  # Increase size
-            font_thickness = 2  # Make bolder
-            text_color = (255, 255, 255)  # White text
-            outline_color = (0, 0, 0)  # Black outline
-
             # Get text size for positioning
             (text_width, text_height), _ = cv2.getTextSize(
-                label, cv2.FONT_HERSHEY_SIMPLEX, font_scale, font_thickness)
+                label, cv2.FONT_HERSHEY_SIMPLEX, FONT_SCALE, FONT_THICKNESS)
 
             # Add background rectangle for contrast
             cv2.rectangle(frame,
                           (x1, y1 - text_height - 10),
                           (x1 + text_width, y1),
-                          (0, 0, 0),
+                          OUTLINE_COLOR,
                           -1)
 
             # Put text with black outline for readability
             cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX,
-                        font_scale, outline_color, font_thickness + 2)
+                        FONT_SCALE, OUTLINE_COLOR, FONT_THICKNESS + 2)
             cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX,
-                        font_scale, text_color, font_thickness)
+                        FONT_SCALE, TEXT_COLOR, FONT_THICKNESS)
 
     # Serialize frame
     data = pickle.dumps(frame)
