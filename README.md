@@ -20,7 +20,7 @@ This project implements **real-time object detection** using **YOLOv8** and stre
 ## Setup Instructions
 
 ```bash
-python download-model.py
+python download_model.py
 ```
 
 ## How It Works
