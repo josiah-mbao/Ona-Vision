@@ -19,36 +19,8 @@ This project implements **real-time object detection** using **YOLOv8** and stre
 
 ## Setup Instructions
 
-### 1. Clone the Repository
 ```bash
-git clone https://github.com/josiah-mbao/realtime-object-detection.git
-cd realtime-object-detection
-```
-
-### 2. Create and Activate a Virtual Environment
-```bash
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-### 3. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Download YOLOv8 Model
-```bash
-wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt
-```
-
-### 5. Run the Server
-```bash
-python main.py
-```
-
-### 6. Run the Client
-```bash
-python client.py
+python download-model.py
 ```
 
 ## How It Works
