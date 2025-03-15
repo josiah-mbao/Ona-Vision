@@ -1,5 +1,4 @@
 import cv2
-import torch
 import socket
 import pickle
 import struct
@@ -33,7 +32,7 @@ while True:
     for result in results:
         for box in result.boxes:
             x1, y1, x2, y2 = map(int, box.xyxy[0])
-            cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)  # Green box
+            cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
             # Get label text
             label = result.names[int(box.cls[0])]  # Object label
@@ -45,14 +44,21 @@ while True:
             outline_color = (0, 0, 0)  # Black outline
 
             # Get text size for positioning
-            (text_width, text_height), _ = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, font_scale, font_thickness)
+            (text_width, text_height), _ = cv2.getTextSize(
+                label, cv2.FONT_HERSHEY_SIMPLEX, font_scale, font_thickness)
 
             # Add background rectangle for contrast
-            cv2.rectangle(frame, (x1, y1 - text_height - 10), (x1 + text_width, y1), (0, 0, 0), -1)
+            cv2.rectangle(frame,
+                          (x1, y1 - text_height - 10),
+                          (x1 + text_width, y1),
+                          (0, 0, 0),
+                          -1)
 
             # Put text with black outline for readability
-            cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, font_scale, outline_color, font_thickness + 2)
-            cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, font_scale, text_color, font_thickness)
+            cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX,
+                        font_scale, outline_color, font_thickness + 2)
+            cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX,
+                        font_scale, text_color, font_thickness)
 
     # Serialize frame
     data = pickle.dumps(frame)
@@ -67,4 +73,3 @@ while True:
 cap.release()
 client_socket.close()
 server_socket.close()
-
