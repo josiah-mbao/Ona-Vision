@@ -37,18 +37,32 @@ while True:
     if not ret:
         break  # Exit if no frame is captured
 
+    # Store original dimensions
+    h, w, _ = frame.shape  # Original frame size
+
+    # Resize frame for YOLO processing
     small_frame = cv2.resize(frame, (640, 480))
-    # Run object detection on the frame
+    sh, sw = small_frame.shape[:2]  # YOLO input size
+
+    # Run object detection on the resized frame
     results = model(small_frame)
 
     # Draw bounding boxes and labels on detected objects
     for result in results:
         for box in result.boxes:
-            x1, y1, x2, y2 = map(int, box.xyxy[0])
+            # Scale bounding box coordinates back to original frame size
+            x1, y1, x2, y2 = map(int, [
+                box.xyxy[0][0] * (w / sw),  # Scale X
+                box.xyxy[0][1] * (h / sh),  # Scale Y
+                box.xyxy[0][2] * (w / sw),  # Scale X
+                box.xyxy[0][3] * (h / sh)   # Scale Y
+            ])
+
+            # Draw bounding box
             cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
             # Get label text
-            label = result.names[int(box.cls[0])]  # Object label
+            label = result.names[int(box.cls[0])]
 
             # Get text size for positioning
             (text_width, text_height), _ = cv2.getTextSize(
