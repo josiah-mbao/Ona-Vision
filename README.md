@@ -43,11 +43,14 @@ Metrics will be available at `http://localhost:8000/metrics`.
 5. **Prometheus metrics** are collected in the background, tracking performance and inference statistics.
 
 ## Observability Metrics
-- **FPS**: Frames per second for performance monitoring.
-- **Inference Time**: Time taken for YOLOv8 inference per frame.
-- **CPU & Memory Usage**: System resource consumption during processing.
-- **Detection Confidence**: Average confidence of detected objects per frame.
-- **Class-wise Object Count**: Tracks the number of detected objects per class.
+| Metric | Description |
+|--------|-------------|
+| **FPS** | Frames per second for performance monitoring |
+| **Inference Time** | Time taken for YOLOv8 inference per frame |
+| **CPU Usage** | System CPU utilization during processing |
+| **Memory Usage** | System memory consumption during processing |
+| **Detection Confidence** | Average confidence of detected objects per frame |
+| **Class-wise Object Count** | Tracks the number of detected objects per class |
 
 ## Demo
 ![Real-Time Detection Example]
