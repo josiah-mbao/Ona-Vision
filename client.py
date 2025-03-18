@@ -5,7 +5,7 @@ import struct
 
 # Connect to the server (adjust IP and port if necessary)
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(("127.0.0.1", 8000))  # Change IP if needed
+client_socket.connect(("127.0.0.1", 8001))  # Change IP if needed
 data = b""
 
 while True:
