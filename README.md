@@ -2,13 +2,18 @@
 <img width="954" alt="library demo" src="https://github.com/user-attachments/assets/44bb0021-983a-4e7a-82d2-acc6acae964a" />
 
 ## Overview
-This project implements **real-time object detection** using **YOLOv8** and streams the processed video over a network. The server captures video from a webcam, performs object detection, and sends the processed frames to a client for display.
+This project implements **real-time object detection** using **YOLOv8** and streams the processed video over a network. The server captures video from a webcam, performs object detection, and sends the processed frames to a client for display. Additionally, it integrates **observability features** using Prometheus to monitor system performance and model inference metrics.
 
 ## Features
 - Uses **YOLOv8** for state-of-the-art object detection
 - **Real-time video processing** with OpenCV
 - **Network streaming** using Python sockets
 - **Bounding box rendering** with object labels
+- **Observability integration** with Prometheus for:
+  - FPS (Frames Per Second)
+  - Inference time
+  - CPU and memory usage
+  - Detection confidence and per-class object count
 
 ## Technologies Used
 - Python
@@ -16,6 +21,7 @@ This project implements **real-time object detection** using **YOLOv8** and stre
 - PyTorch
 - Ultralytics YOLOv8
 - Socket Programming
+- **Prometheus** for monitoring
 
 ## Setup Instructions
 
@@ -23,17 +29,30 @@ This project implements **real-time object detection** using **YOLOv8** and stre
 python download_model.py
 ```
 
+To start the Prometheus metrics server:
+```bash
+python server.py
+```
+Metrics will be available at `http://localhost:8000/metrics`.
+
 ## How It Works
 1. The **server** captures frames from the webcam and runs YOLOv8 for object detection.
 2. Bounding boxes and labels are added to the frame.
 3. The processed frame is serialized and sent to the **client** over a socket connection.
 4. The **client** receives and displays the video in real-time.
+5. **Prometheus metrics** are collected in the background, tracking performance and inference statistics.
+
+## Observability Metrics
+- **FPS**: Frames per second for performance monitoring.
+- **Inference Time**: Time taken for YOLOv8 inference per frame.
+- **CPU & Memory Usage**: System resource consumption during processing.
+- **Detection Confidence**: Average confidence of detected objects per frame.
+- **Class-wise Object Count**: Tracks the number of detected objects per class.
 
 ## Demo
 ![Real-Time Detection Example]
 
 https://github.com/user-attachments/assets/8246bf73-b810-48b7-9b8b-a855f730fb1f
-
 
 ## Potential Improvements
 - **Multi-object tracking** using DeepSORT
@@ -45,7 +64,6 @@ https://github.com/user-attachments/assets/8246bf73-b810-48b7-9b8b-a855f730fb1f
 This project is open-source under the MIT License.
 
 ## Author
-**Josiah Mbao**  
+**Josiah Mbao**
 🔗 [GitHub](https://github.com/josiah-mbao)  |  ✉️ josiahmbaomc@gmail.com
-
 
