@@ -15,6 +15,28 @@ This project implements **real-time object detection** using **YOLOv8** and stre
   - CPU and memory usage
   - Detection confidence and per-class object count
 
+## Multi-Object Tracking (MOT) with DeepSORT
+
+### What is DeepSORT?
+DeepSORT (Deep Simple Online and Realtime Tracker) is an advanced object tracking algorithm that extends the original SORT tracker by adding deep learning-based appearance descriptors. This helps improve object re-identification across frames, making tracking more reliable in crowded or fast-moving scenes.
+
+### Why Use DeepSORT?
+- **Tracks multiple objects across frames** with consistent IDs.
+- **Handles occlusions** (when objects overlap or disappear temporarily).
+- **Re-identifies objects** even if they leave and re-enter the scene.
+- **More accurate tracking** compared to basic object detection.
+
+### How It Works in Ona Vision
+1. **YOLOv8 detects objects** in each frame.
+2. **DeepSORT assigns unique IDs** to detected objects.
+3. **Tracks objects over time**, even if they move, overlap, or briefly disappear.
+4. **Outputs tracking results** with bounding boxes and IDs.
+
+### Performance Impact
+- Adds a **small processing overhead** (~5-10% FPS drop).
+- More stable tracking compared to detection-only mode.
+- Ideal for **surveillance, traffic monitoring, and sports analytics**.
+
 ## Technologies Used
 - Python
 - OpenCV
