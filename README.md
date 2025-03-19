@@ -1,7 +1,9 @@
 # Real-Time Object Detection with YOLOv8 and Video Streaming
 <img width="954" alt="library demo" src="https://github.com/user-attachments/assets/44bb0021-983a-4e7a-82d2-acc6acae964a" />
 
-# Ona Vision - Mission Statement  
+# Ona Vision 
+![Ona Vison logo](https://github.com/user-attachments/assets/606d0eed-5bcc-4260-930f-348c699b26eb)
+
 
 ## Our Mission  
 At **Ona Vision**, we strive to revolutionize real-time computer vision by making cutting-edge AI-powered detection and monitoring systems accessible, scalable, and efficient.  
