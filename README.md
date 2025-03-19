@@ -1,6 +1,24 @@
 # Real-Time Object Detection with YOLOv8 and Video Streaming
 <img width="954" alt="library demo" src="https://github.com/user-attachments/assets/44bb0021-983a-4e7a-82d2-acc6acae964a" />
 
+# Ona Vision - Mission Statement  
+
+## Our Mission  
+At **Ona Vision**, we strive to revolutionize real-time computer vision by making cutting-edge AI-powered detection and monitoring systems accessible, scalable, and efficient.  
+
+## Our Vision  
+To empower individuals, businesses, and communities with **state-of-the-art** object detection and recognition solutions that enhance safety, automation, and decision-making.  
+
+## Core Values  
+- **Innovation** – Pushing the boundaries of AI and real-time processing.  
+- **Efficiency** – Optimizing performance for seamless, real-world applications.  
+- **Accessibility** – Bringing advanced vision technology to everyone, everywhere.  
+- **Reliability** – Ensuring accuracy and dependability in mission-critical scenarios.  
+
+## What We Do  
+Ona Vision integrates **YOLO-based object detection**, real-time **video streaming**, and **observability features** to provide insights that drive smarter, safer environments. Whether for security surveillance, industrial monitoring, or smart city applications, our solutions are built for high performance and scalability.  
+
+
 ## Overview
 This project implements **real-time object detection** using **YOLOv8** and streams the processed video over a network. The server captures video from a webcam, performs object detection, and sends the processed frames to a client for display. Additionally, it integrates **observability features** using Prometheus to monitor system performance and model inference metrics.
 
