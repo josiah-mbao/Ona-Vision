@@ -27,8 +27,7 @@ Ona Vision integrates **YOLO-based object detection**, real-time **video streami
 ## Overview
 This project implements **real-time object detection** using **YOLOv8** and streams the processed video over a network. The server captures video from a webcam, performs object detection, and sends the processed frames to a client for display. Additionally, it integrates **observability features** using Prometheus to monitor system performance and model inference metrics.
 
-## Features<img width="288" alt="Screenshot 2025-03-19 at 21 08 18" src="https://github.com/user-attachments/assets/da8af478-e662-442b-8134-328dd323d44a" />
-
+## Features
 - Uses **YOLOv8** for state-of-the-art object detection
 - **Real-time video processing** with OpenCV
 - **Network streaming** using Python sockets
