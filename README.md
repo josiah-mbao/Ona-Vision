@@ -58,12 +58,12 @@ Run the project
 python download_model.py
 ```
 
-Start webcam or other video feed
+Start the server which processes frames from webcam or other source
 ```bash
 python main.py
 ```
 
-Run this in a seperate terminal or tab to display real-time video analysis
+Display real-time video
 ```bash
 python client.py
 ```
