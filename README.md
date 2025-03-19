@@ -1,10 +1,12 @@
-(https://github.com/user-attachments/assets/bd5225d9-c7b4-4b5c-af5a-a4ca103ab614)
 # Real-Time Object Detection with YOLOv8 and Video Streaming
-<img width="954" alt="library demo" src="https://github.com/user-attachments/assets/44bb0021-983a-4e7a-82d2-acc6acae964a" />
+<p align="center">
+<img width="800" alt="library demo" src="https://github.com/user-attachments/assets/44bb0021-983a-4e7a-82d2-acc6acae964a" />
+</p>
 
 # Ona Vision 
-![Ona Vison logo](https://github.com/user-attachments/assets/bd5225d9-c7b4-4b5c-af5a-a4ca103ab614)
-
+<p align="center">
+<img width="500" height="395" alt="logo" src="https://github.com/user-attachments/assets/ad7173d1-7dee-471d-8a2e-cc707cf3306c" />
+</p>
 
 ## Our Mission  
 At **Ona Vision**, we strive to revolutionize real-time computer vision by making cutting-edge AI-powered detection and monitoring systems accessible, scalable, and efficient.  
@@ -25,7 +27,8 @@ Ona Vision integrates **YOLO-based object detection**, real-time **video streami
 ## Overview
 This project implements **real-time object detection** using **YOLOv8** and streams the processed video over a network. The server captures video from a webcam, performs object detection, and sends the processed frames to a client for display. Additionally, it integrates **observability features** using Prometheus to monitor system performance and model inference metrics.
 
-## Features
+## Features<img width="288" alt="Screenshot 2025-03-19 at 21 08 18" src="https://github.com/user-attachments/assets/da8af478-e662-442b-8134-328dd323d44a" />
+
 - Uses **YOLOv8** for state-of-the-art object detection
 - **Real-time video processing** with OpenCV
 - **Network streaming** using Python sockets
@@ -46,14 +49,26 @@ This project implements **real-time object detection** using **YOLOv8** and stre
 
 ## Setup Instructions
 
+Install Libraries from requirements.txt
+```bash
+pip install -r requirements.txt
+```
+
+Run the project
 ```bash
 python download_model.py
 ```
 
-To start the Prometheus metrics server:
+Start webcam or other video feed
 ```bash
-python server.py
+python main.py
 ```
+
+Run this in a seperate terminal or tab to display real-time video analysis
+```bash
+python client.py
+```
+
 Metrics will be available at `http://localhost:8000/metrics`.
 
 ## How It Works
@@ -74,8 +89,6 @@ Metrics will be available at `http://localhost:8000/metrics`.
 | **Class-wise Object Count** | Tracks the number of detected objects per class |
 
 ## Demo
-![Real-Time Detection Example]
-
 https://github.com/user-attachments/assets/8246bf73-b810-48b7-9b8b-a855f730fb1f
 
 ## Potential Improvements
