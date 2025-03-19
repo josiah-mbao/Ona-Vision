@@ -13,7 +13,7 @@ from deep_sort_realtime.deepsort_tracker import DeepSort
 model = YOLO("yolov8n.pt")
 
 # Initialize DeepSORT tracker
-tracker = DeepSort(max_age=30)
+tracker = DeepSort(max_age=10)
 
 # Initialize Prometheus metrics
 fps_metric = Gauge("fps", "Frames per second")
@@ -37,12 +37,12 @@ while cap.isOpened():
     ret, frame = cap.read()
     if not ret:
         break
-    
+
     start_time = time.time()
-    
+
     # Run YOLO inference
     results = model(frame)
-    
+
     detections = []
     for result in results:
         for box in result.boxes:
@@ -52,7 +52,7 @@ while cap.isOpened():
             class_name = result.names[class_id]
 
             detections.append(([x1, y1, x2, y2], confidence, class_name))
-    
+
     # Track objects
     tracked_objects = tracker.update_tracks(detections, frame=frame)
 
@@ -60,14 +60,14 @@ while cap.isOpened():
     for track in tracked_objects:
         if not track.is_confirmed():
             continue
-        
+
         track_id = track.track_id
         ltrb = track.to_ltrb()
         x1, y1, x2, y2 = map(int, ltrb)
-        label = f"{track.get_det_class()} (ID: {track_id})"
+        LABEL = f"{track.get_det_class()} (ID: {track_id})"
 
         cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        cv2.putText(frame, label, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
+        cv2.putText(frame, LABEL, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
 
     # Update metrics
     fps_metric.set(1.0 / (time.time() - start_time))
@@ -76,7 +76,7 @@ while cap.isOpened():
     # Serialize frame
     data = pickle.dumps(frame)
     msg_size = struct.pack("Q", len(data))
-    
+
     try:
         client_socket.sendall(msg_size + data)
     except BrokenPipeError:
