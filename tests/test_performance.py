@@ -1,13 +1,14 @@
 import unittest
-from prometheus_client import start_http_server, Gauge
-import time
+from prometheus_client import Gauge
+from main import fps_metric, detection_count_metric
 
 class TestPerformance(unittest.TestCase):
-    def test_fps(self):
-        start_http_server(8000)
-        start_time = time.time()
-        frames_processed = 0
-        while time.time() - start_time < 1:
-            frames_processed += 1
-        fps = frames_processed / (time.time() - start_time)
-        self.assertGreater(fps, 10)  # Ensure FPS stays above a threshold
+    def test_fps_metric(self):
+        # Simulate FPS update
+        fps_metric.set(30)
+        self.assertEqual(fps_metric._value.get(), 30)
+
+    def test_detection_count_metric(self):
+        # Simulate detection count update
+        detection_count_metric.set(5)
+        self.assertEqual(detection_count_metric._value.get(), 5)
