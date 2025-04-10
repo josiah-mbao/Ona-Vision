@@ -4,6 +4,15 @@ import pickle
 import struct
 import time
 
+def recv_exact(sock, size):
+    buffer = b""
+    while len(buffer) < size:
+        packet = sock.recv(size - len(buffer))
+        if not packet:
+            return None
+        buffer += packet
+    return buffer
+
 # Connect to the server (adjust IP and port if necessary)
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(("127.0.0.1", 8001))  # Change IP if needed
@@ -13,22 +22,14 @@ frame_count = 0
 start_time = time.time()
 
 while True:
-    # Receive data from server
-    while len(data) < struct.calcsize("Q"):
-        packet = client_socket.recv(4 * 1024)
-        if not packet:
-            break
-        data += packet
-
-    packed_msg_size = data[: struct.calcsize("Q")]
-    data = data[struct.calcsize("Q"):]
+    packed_msg_size = recv_exact(client_socket, struct.calcsize("Q"))
+    if not packed_msg_size:
+        break
     msg_size = struct.unpack("Q", packed_msg_size)[0]
 
-    while len(data) < msg_size:
-        data += client_socket.recv(4 * 1024)
-
-    frame_data = data[:msg_size]
-    data = data[msg_size:]
+    frame_data = recv_exact(client_socket, msg_size)
+    if not frame_data:
+        break
 
     # Deserialize frame
     frame = pickle.loads(frame_data)
