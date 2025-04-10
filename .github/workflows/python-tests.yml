@@ -11,7 +11,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest  # The operating system for the runner
-    
+
     steps:
     # Step 1: Checkout the code
     - name: Checkout code

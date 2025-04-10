@@ -1,7 +1,7 @@
 anyio==4.8.0
 click==8.1.8
 fastapi==0.115.11
-numpy==2.0.2
+numpy==1.23.5  # Downgraded to a stable version
 opencv-python==4.11.0.86
 pillow==11.1.0
 pydantic==2.10.6
@@ -12,5 +12,5 @@ torchvision==0.21.0
 tqdm==4.67.1
 ultralytics==8.3.91
 uvicorn==0.34.0
-prometheus-client
-deep-sort-realtime
+prometheus-client==0.15.0  # Added a version
+deep-sort-realtime==1.3.2  # Added a version
