@@ -12,4 +12,5 @@ torchvision==0.21.0
 tqdm==4.67.1
 ultralytics==8.3.91
 uvicorn==0.34.0
-
+prometheus-client
+deep-sort-realtime
