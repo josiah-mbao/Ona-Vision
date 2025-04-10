@@ -1,8 +1,15 @@
-import cv2
+"""
+This script captures video from a webcam,
+performs object detection using YOLOv8, tracks detected objects using DeepSORT,
+and sends the processed video frames to a client over a socket connection.
+It also exposes Prometheus metrics for frames per second (FPS)
+and the number of detected objects.
+"""
 import socket
 import pickle
 import struct
 import time
+import cv2
 import psutil
 from collections import defaultdict
 from ultralytics import YOLO
@@ -67,7 +74,9 @@ while cap.isOpened():
         LABEL = f"{track.get_det_class()} (ID: {track_id})"
 
         cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        cv2.putText(frame, LABEL, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
+        cv2.putText(
+            frame, LABEL, (x1, y1 - 5),
+            cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
 
     # Update metrics
     fps_metric.set(1.0 / (time.time() - start_time))

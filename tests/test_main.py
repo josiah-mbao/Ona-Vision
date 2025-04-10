@@ -1,5 +1,4 @@
-import pytest
-import cv2
+from unittest.mock import patch
 import socket
 import pickle
 import struct
@@ -8,7 +7,8 @@ import psutil
 import numpy as np
 from ultralytics import YOLO
 from deep_sort_realtime.deepsort_tracker import DeepSort
-from unittest.mock import patch
+import pytest
+import cv2
 
 
 # Test YOLO Model
