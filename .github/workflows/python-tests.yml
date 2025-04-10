@@ -3,7 +3,7 @@ name: Python Tests
 on:
   push:
     branches:
-      - main  # Trigger the workflow on push to the 'main' branch
+      - feat/implement-testing  # Trigger the workflow on push to the said branch
   pull_request:
     branches:
       - main  # Trigger the workflow on pull requests to the 'main' branch
