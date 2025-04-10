@@ -5,6 +5,7 @@ numpy==1.23.5  # Downgraded to a stable version
 opencv-python==4.11.0.86
 pillow==11.1.0
 pydantic==2.10.6
+pytest==7.4.0
 python-multipart==0.0.20
 requests==2.32.3
 torch==2.6.0
