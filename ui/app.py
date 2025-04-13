@@ -1,43 +1,41 @@
-from flask import Flask, render_template, redirect, url_for
-import subprocess
+from flask import Flask, Response, render_template
+import cv2
+import time
 
 app = Flask(__name__)
 
-server_process = None
-client_process = None
+# Open the webcam or video feed (you can replace this with your own video source)
+cap = cv2.VideoCapture(0)  # This is the default webcam; replace with video feed if needed
 
+def generate_video():
+    while True:
+        # Read a frame from the camera
+        ret, frame = cap.read()
+        if not ret:
+            print("Failed to capture frame.")
+            break
+        
+        # Convert the frame to JPEG
+        ret, jpeg = cv2.imencode('.jpg', frame)
+        if not ret:
+            print("Failed to encode frame.")
+            continue
+
+        # Yield the frame as a byte stream for Flask
+        frame_data = jpeg.tobytes()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame_data + b'\r\n\r\n')
+
+        # Control the frame rate (e.g., 30 FPS)
+        time.sleep(1/30)  # Sleep to control FPS
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(generate_video(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
-
-@app.route("/start-server")
-def start_server():
-    global server_process
-    if server_process is None:
-        server_process = subprocess.Popen(["python", "/Users/josiah/Desktop/Python Projects/Ona Vision/main.py"])
-    return redirect(url_for("index"))
-
-
-@app.route("/start-client")
-def start_client():
-    global client_process
-    if client_process is None:
-        client_process = subprocess.Popen(["python", "/Users/josiah/Desktop/Python Projects/Ona Vision/client.py"])
-    return redirect(url_for("index"))
-
-
-@app.route("/stop")
-def stop_all():
-    global server_process, client_process
-    if server_process:
-        server_process.terminate()
-        server_process = None
-    if client_process:
-        client_process.terminate()
-        client_process = None
-    return redirect(url_for("index"))
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True, threaded=True)
