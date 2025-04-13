@@ -25,7 +25,17 @@ Ona Vision integrates **YOLO-based object detection**, real-time **video streami
 
 
 ## Overview
+
 This project implements **real-time object detection** using **YOLOv8** and streams the processed video over a network. The server captures video from a webcam, performs object detection, and sends the processed frames to a client for display. Additionally, it integrates **observability features** using Prometheus to monitor system performance and model inference metrics.
+
+### The Inspiration
+
+This project was born out of a frustrating and unfortunate experience I had. I lost—or possibly had—my **AirPods stolen** at my university library. In an attempt to recover them, I spent nearly an hour in the CCTV office scrubbing through days of footage, trying to figure out what time I was at the library and if the AirPods could be spotted in any frame.
+
+The process was tedious and inefficient. Manually reviewing security footage without any intelligent filtering or automation felt like looking for a needle in a haystack. Unfortunately, I never found my AirPods—but I did walk away with an idea.
+
+**Ona Vision** is my attempt to ensure others don’t have to go through that same helpless process. With object detection and tracking built in, this system can help people and institutions monitor and trace specific objects in real-time or recorded video streams. It’s my hope that this technology can make environments a little safer, and surveillance systems a lot smarter.
+
 
 ## Features
 - Uses **YOLOv8** for state-of-the-art object detection
