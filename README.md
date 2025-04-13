@@ -1,28 +1,8 @@
-# Real-Time Object Detection with YOLOv8 and Video Streaming
-<p align="center">
-<img width="800" alt="library demo" src="https://github.com/user-attachments/assets/44bb0021-983a-4e7a-82d2-acc6acae964a" />
-</p>
-
-# Ona Vision 
 <p align="center">
 <img width="500" height="395" alt="logo" src="https://github.com/user-attachments/assets/ad7173d1-7dee-471d-8a2e-cc707cf3306c" />
 </p>
 
-## Our Mission  
-At **Ona Vision**, we strive to revolutionize real-time computer vision by making cutting-edge AI-powered detection and monitoring systems accessible, scalable, and efficient.  
-
-## Our Vision  
-To empower individuals, businesses, and communities with **state-of-the-art** object detection and recognition solutions that enhance safety, automation, and decision-making.  
-
-## Core Values  
-- **Innovation** – Pushing the boundaries of AI and real-time processing.  
-- **Efficiency** – Optimizing performance for seamless, real-world applications.  
-- **Accessibility** – Bringing advanced vision technology to everyone, everywhere.  
-- **Reliability** – Ensuring accuracy and dependability in mission-critical scenarios.  
-
-## What We Do  
-Ona Vision integrates **YOLO-based object detection**, real-time **video streaming**, and **observability features** to provide insights that drive smarter, safer environments. Whether for security surveillance, industrial monitoring, or smart city applications, our solutions are built for high performance and scalability.  
-
+# Real-Time Object Detection with YOLOv8 and Video Streaming
 
 ## Overview
 
@@ -35,7 +15,9 @@ This project was born out of a frustrating and unfortunate experience I had. I l
 The process was tedious and inefficient. Manually reviewing security footage without any intelligent filtering or automation felt like looking for a needle in a haystack. Unfortunately, I never found my AirPods—but I did walk away with an idea.
 
 **Ona Vision** is my attempt to ensure others don’t have to go through that same helpless process. With object detection and tracking built in, this system can help people and institutions monitor and trace specific objects in real-time or recorded video streams. It’s my hope that this technology can make environments a little safer, and surveillance systems a lot smarter.
-
+<p align="center">
+<img width="800" alt="library demo" src="https://github.com/user-attachments/assets/44bb0021-983a-4e7a-82d2-acc6acae964a" />
+</p>
 
 ## Features
 - Uses **YOLOv8** for state-of-the-art object detection
