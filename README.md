@@ -40,7 +40,7 @@ You can now launch the detection system and view results from your browser using
 cd ui
 python app.py
 ```
-Then visit http://localhost:5000
+Then visit http://localhost:5000 in your browser.
 
 
 ## Multi-Object Tracking (MOT) with DeepSORT
@@ -72,17 +72,13 @@ DeepSORT (Deep Simple Online and Realtime Tracker) is an advanced object trackin
 - Ultralytics YOLOv8
 - Socket Programming
 - **Prometheus** for monitoring
+- **Docker** for containerizing the project
 
 ## Setup Instructions
 
 Install Libraries from requirements.txt
 ```bash
 pip install -r requirements.txt
-```
-
-Run the project
-```bash
-python download_model.py
 ```
 
 Start the server which processes frames from webcam or other source
@@ -95,6 +91,13 @@ Display real-time video
 python client.py
 ```
 
+### Web UI:
+To launch the web UI, navigate to the "ui" directory and run:
+```bash
+cd ui
+python app.py
+```
+Then visit http:localhost:5000 to view the results in browser.
 Metrics will be available at `http://localhost:8000/metrics`.
 
 ## How It Works
