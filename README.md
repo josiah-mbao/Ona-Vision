@@ -30,6 +30,17 @@ The process was tedious and inefficient. Manually reviewing security footage wit
   - CPU and memory usage
   - Detection confidence and per-class object count
 
+## Web UI (New!)
+You can now launch the detection system and view results from your browser using Flask.
+
+### To Run the Web UI:
+```bash
+cd ui
+python app.py
+```
+Then visit http://localhost:5000
+
+
 ## Multi-Object Tracking (MOT) with DeepSORT
 
 ### What is DeepSORT?
