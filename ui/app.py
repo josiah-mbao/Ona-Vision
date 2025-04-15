@@ -1,24 +1,25 @@
 from flask import Flask, Response, render_template
 import cv2
 import time
+import os  # <-- Added this line
 
 app = Flask(__name__)
 
-# Open the webcam or video feed (you can replace this with your own video source)
-cap = cv2.VideoCapture(0)  # This is the default webcam; replace with video feed if needed
+# Open the video file from the same directory as app.py
+video_path = os.path.join(os.path.dirname(__file__), "crowd_demo.mp4")
+cap = cv2.VideoCapture(video_path)
 
 def generate_video():
     while True:
-        # Read a frame from the camera
         ret, frame = cap.read()
         if not ret:
-            print("Failed to capture frame.")
-            break
-        
+            # Restart the video if it ends
+            cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+            continue
+
         # Convert the frame to JPEG
         ret, jpeg = cv2.imencode('.jpg', frame)
         if not ret:
-            print("Failed to encode frame.")
             continue
 
         # Yield the frame as a byte stream for Flask
@@ -26,8 +27,8 @@ def generate_video():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_data + b'\r\n\r\n')
 
-        # Control the frame rate (e.g., 30 FPS)
-        time.sleep(1/30)  # Sleep to control FPS
+        # Control the frame rate (30 FPS)
+        time.sleep(1/30)
 
 @app.route('/video_feed')
 def video_feed():
@@ -38,4 +39,4 @@ def index():
     return render_template("index.html")
 
 if __name__ == '__main__':
-    app.run(debug=True, threaded=True)
+    app.run(host="0.0.0.0", port=5000, debug=True, threaded=True)

@@ -1,0 +1,20 @@
+FROM python:3.10-slim
+
+# Install dependencies for OpenCV GUI features
+RUN apt-get update && apt-get install -y \
+    libgl1 \
+    libgtk2.0-dev \
+    libsm6 \
+    libxext6 \
+    libxrender-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY client/client.py .
+
+CMD ["python", "client.py"]

@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.vscode/
+.git/
+yolov5s.pt
+yolov8n.pt
