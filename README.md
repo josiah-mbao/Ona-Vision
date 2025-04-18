@@ -4,6 +4,12 @@
 
 # MLOps Real-Time Object Detection with YOLOv8 and Video Streaming
 
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![YOLOv8](https://img.shields.io/badge/YOLOv8-black?style=for-the-badge&logo=opencv&logoColor=white)
+![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
+
 ## Overview
 
 This project implements real-time object detection using YOLOv8 and streams the processed video over a network. The server captures video from a webcam, performs object detection, and sends the processed frames to a client for display. Additionally, it integrates observability features using Prometheus to monitor system performance and model inference metrics.
@@ -65,14 +71,6 @@ DeepSORT (Deep Simple Online and Realtime Tracker) is an advanced object trackin
 - More stable tracking compared to detection-only mode.
 - Ideal for **surveillance, traffic monitoring, and sports analytics**.
 
-## Technologies Used
-- Python
-- OpenCV
-- PyTorch
-- Ultralytics YOLOv8
-- Socket Programming
-- **Prometheus** for monitoring
-- **Docker** for containerizing the project
 
 ## Setup Instructions
 
