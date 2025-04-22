@@ -125,9 +125,12 @@ https://github.com/user-attachments/assets/8246bf73-b810-48b7-9b8b-a855f730fb1f
 - **Web-based visualization** using Flask or FastAPI
 
 ## License
-This project is open-source under the MIT License.
+This project is open-source under the **Apache 2.0 License**, with the **Commons Clause** added.
+- You are free to use, modify, and distribute the code under the terms of the Apache 2.0 License.
+- However, the Commons Clause prohibits selling this software or offering it as a service (SaaS) without explicit permission.
 
 ## Author
-**Josiah Mbao**
-🔗 [GitHub](https://github.com/josiah-mbao)  |  ✉️ josiahmbaomc@gmail.com
+Josiah Mbao – Software Engineer | MLOps Developer  
+🔗 GitHub | ✉️ josiahmbaomc@gmail.com
+
 
