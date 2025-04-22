@@ -1,10 +1,14 @@
-import cv2
+""" Client for receiving video stream from server
+and displaying it with bounding boxes."""
 import socket
 import pickle
 import struct
 import time
+import cv2
+
 
 def recv_exact(sock, size):
+    """Receive exactly 'size' bytes from the socket."""
     buffer = b""
     while len(buffer) < size:
         packet = sock.recv(size - len(buffer))
@@ -13,31 +17,33 @@ def recv_exact(sock, size):
         buffer += packet
     return buffer
 
+
 # Retry logic for connecting to server
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-max_retries = 10
-retry_delay = 2  # seconds
+MAX_RETRIES = 10
+RETRY_DELAY = 2  # seconds
 
-for attempt in range(max_retries):
+for attempt in range(MAX_RETRIES):
     try:
         print(f"Attempt {attempt + 1} to connect to server...")
-        client_socket.connect(("server", 8001))  # Use Docker service name
+        client_socket.connect(("localhost", 8001))
+        # Use DNS name "server" for Docker container
         print("Connected to server ✅")
         break
     except socket.gaierror:
         print("DNS resolution failed, retrying...")
-        time.sleep(retry_delay)
+        time.sleep(RETRY_DELAY)
     except ConnectionRefusedError:
         print("Server not ready, retrying...")
-        time.sleep(retry_delay)
+        time.sleep(RETRY_DELAY)
 else:
     print("❌ Failed to connect after multiple attempts. Exiting.")
     exit(1)
 
 # Proceed with receiving and displaying frames
-data = b""
-frame_count = 0
+DATA = b""
+FRAME_COUNT = 0
 start_time = time.time()
 
 while True:
@@ -57,13 +63,13 @@ while True:
     cv2.imshow("Ona Vision - Live Object Detection", frame)
 
     # Calculate FPS
-    frame_count += 1
+    FRAME_COUNT += 1
     elapsed_time = time.time() - start_time
 
     if elapsed_time > 1:  # Update FPS every second
-        fps = frame_count / elapsed_time
+        fps = FRAME_COUNT / elapsed_time
         print(f"Client Streaming FPS: {fps:.2f}")
-        frame_count = 0
+        FRAME_COUNT = 0
         start_time = time.time()
 
     if cv2.waitKey(1) & 0xFF == ord("q"):
