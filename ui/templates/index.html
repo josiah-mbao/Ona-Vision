@@ -76,16 +76,14 @@
             document.getElementById("time").textContent = now.toLocaleTimeString();
         }
 
-        setInterval(updateClock, 1000);
-        updateClock(); // initial call
-
-        // Optional: auto-refresh detection stats
-        // setInterval(() => {
-        //     fetch('/stats').then(res => res.json()).then(data => {
-        //         document.getElementById('fps').textContent = data.fps;
-        //         document.getElementById('detections').textContent = data.detections;
-        //     });
-        // }, 1000);
+        setInterval(() => {
+            fetch('/stats')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('fps').textContent = data.fps;
+                    document.getElementById('detections').textContent = data.detections;
+                });
+        }, 1000);
     </script>
 
 </body>
