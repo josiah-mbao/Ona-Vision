@@ -40,6 +40,9 @@ The process was tedious and inefficient. Manually reviewing security footage wit
 
 ## Web UI (New!)
 You can now launch the detection system and view results from your browser using Flask.
+<img width="1436" alt="Screenshot 2025-05-08 at 21 20 21" src="https://github.com/user-attachments/assets/72689035-a412-4b61-bba3-c50f508a3ac8" />
+
+
 
 ### To Run the Web UI:
 ```bash
