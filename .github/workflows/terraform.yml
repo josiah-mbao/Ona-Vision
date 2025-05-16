@@ -17,13 +17,13 @@ jobs:
       uses: hashicorp/setup-terraform@v2
 
     - name: Terraform Init
-      run: terraform init infra/
+      run: terraform -chdir=infra/ init
 
     - name: Format Check
       run: terraform fmt -check -recursive infra/
 
     - name: Validate
-      run: terraform validate infra/
+      run: terraform -chdir=infra/ validate
 
     - name: Security Scan
       uses: aquasecurity/tfsec-action@v1.0.0
