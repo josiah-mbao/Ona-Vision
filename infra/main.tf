@@ -28,7 +28,7 @@ resource "google_cloud_run_service" "ona_vision" {
     }
   }
 
-  traffics {
+  traffic {
     percent         = 100
     latest_revision = true
   }
