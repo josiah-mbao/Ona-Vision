@@ -16,6 +16,14 @@ This project implements real-time object detection using YOLOv8 and streams the 
 
 Ona Vision is a full MLOps pipeline, covering the complete lifecycle of a machine learning model, from training to deployment, monitoring, and scaling. It leverages Docker, Kubernetes, and GitOps to ensure a scalable and reliable production system for object detection and monitoring.
 
+<p align="center">
+  
+
+https://github.com/user-attachments/assets/2263076d-61f8-4ba1-9986-2fc40656acb4
+
+
+</p>
+
 ### The Inspiration
 
 Ona Vision was born out of a frustrating and unfortunate experience I had. I lost—or possibly had—my **AirPods stolen** at my university library. In an attempt to recover them, I spent nearly an hour in the CCTV office scrubbing through days of footage, trying to figure out what time I was at the library and if the AirPods could be spotted in any frame.
@@ -23,9 +31,7 @@ Ona Vision was born out of a frustrating and unfortunate experience I had. I los
 The process was tedious and inefficient. Manually reviewing security footage without any intelligent filtering or automation felt like looking for a needle in a haystack. Unfortunately, I never found my AirPods—but I did walk away with an idea.
 
 **Ona Vision** is my attempt to ensure others don’t have to go through that same helpless process. With object detection and tracking built in, this system can help people and institutions monitor and trace specific objects in real-time or recorded video streams. It’s my hope that this technology can make environments a little safer, and surveillance systems a lot smarter.
-<p align="center">
-<img width="800" alt="library demo" src="https://github.com/user-attachments/assets/44bb0021-983a-4e7a-82d2-acc6acae964a" />
-</p>
+
 
 ## Features
 - Uses **YOLOv8** for state-of-the-art object detection
@@ -38,8 +44,10 @@ The process was tedious and inefficient. Manually reviewing security footage wit
   - CPU and memory usage
   - Detection confidence and per-class object count
 
-## Web UI (New!)
+## Web UI
 You can now launch the detection system and view results from your browser using Flask.
+<img width="1436" alt="flask UI" src="https://github.com/user-attachments/assets/72689035-a412-4b61-bba3-c50f508a3ac8" />
+
 
 ### To Run the Web UI:
 ```bash
@@ -125,9 +133,8 @@ https://github.com/user-attachments/assets/8246bf73-b810-48b7-9b8b-a855f730fb1f
 - **Web-based visualization** using Flask or FastAPI
 
 ## License
-This project is open-source under the **Apache 2.0 License**, with the **Commons Clause** added.
+This project is open-source under the **Apache 2.0 License**.
 - You are free to use, modify, and distribute the code under the terms of the Apache 2.0 License.
-- However, the Commons Clause prohibits selling this software or offering it as a service (SaaS) without explicit permission.
 
 ## Author
 Josiah Mbao – Software Engineer | MLOps Developer  
