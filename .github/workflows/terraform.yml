@@ -1,0 +1,32 @@
+name: Terraform CI
+
+on:
+  pull_request:
+    paths:
+      - 'infra/**.tf'
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+
+    - name: Terraform Init
+      run: terraform -chdir=infra/ init
+
+    - name: Format Check
+      run: terraform fmt -check -recursive infra/
+
+    - name: Validate
+      run: terraform -chdir=infra/ validate
+
+    - name: Security Scan
+      uses: aquasecurity/tfsec-action@v1.0.0
+      with:
+        working-directory: infra/
+
