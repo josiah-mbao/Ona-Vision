@@ -1,5 +1,5 @@
 variable "project_id" {
-  description = "Your GCP Project ID"
+  description = "juice-ai-452311"
   type        = string
 }
 
