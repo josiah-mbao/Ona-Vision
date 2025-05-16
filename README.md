@@ -2,7 +2,7 @@
 <img width="500" height="395" alt="logo" src="https://github.com/user-attachments/assets/ad7173d1-7dee-471d-8a2e-cc707cf3306c" />
 </p>
 
-# MLOps Real-Time Object Detection with YOLOv8 and Video Streaming
+# Ona Vision 🎯 — Real-Time Object Detection & Monitoring with YOLOv8, DeepSORT, and MLOps
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![YOLOv8](https://img.shields.io/badge/YOLOv8-black?style=for-the-badge&logo=opencv&logoColor=white)
