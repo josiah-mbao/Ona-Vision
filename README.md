@@ -24,7 +24,11 @@ The process was tedious and inefficient. Manually reviewing security footage wit
 
 **Ona Vision** is my attempt to ensure others don’t have to go through that same helpless process. With object detection and tracking built in, this system can help people and institutions monitor and trace specific objects in real-time or recorded video streams. It’s my hope that this technology can make environments a little safer, and surveillance systems a lot smarter.
 <p align="center">
-<img width="800" alt="library demo" src="https://github.com/user-attachments/assets/44bb0021-983a-4e7a-82d2-acc6acae964a" />
+  
+
+https://github.com/user-attachments/assets/2263076d-61f8-4ba1-9986-2fc40656acb4
+
+
 </p>
 
 ## Features
@@ -38,10 +42,9 @@ The process was tedious and inefficient. Manually reviewing security footage wit
   - CPU and memory usage
   - Detection confidence and per-class object count
 
-## Web UI (New!)
+## Web UI
 You can now launch the detection system and view results from your browser using Flask.
-<img width="1436" alt="Screenshot 2025-05-08 at 21 20 21" src="https://github.com/user-attachments/assets/72689035-a412-4b61-bba3-c50f508a3ac8" />
-
+<img width="1436" alt="flask UI" src="https://github.com/user-attachments/assets/72689035-a412-4b61-bba3-c50f508a3ac8" />
 
 
 ### To Run the Web UI:
