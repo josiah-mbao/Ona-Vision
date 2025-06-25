@@ -3,6 +3,7 @@
 </p>
 
 # Ona Vision 🎯 — Real-Time Object Detection & Monitoring with YOLOv8, DeepSORT, and MLOps
+[![GitHub stars](https://img.shields.io/github/stars/josiah-mbao/ona-vision?style=social)](https://github.com/josiah-mbao/ona-vision/stargazers)
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![YOLOv8](https://img.shields.io/badge/YOLOv8-black?style=for-the-badge&logo=opencv&logoColor=white)
@@ -11,23 +12,48 @@
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
 ![Terraform](https://img.shields.io/badge/Terraform-623CE4?style=for-the-badge&logo=terraform&logoColor=white)
 
+## Tech Stack
+
+- 🐍 Python 3.10
+- 🧠 YOLOv8 (Ultralytics)
+- 🔍 DeepSORT
+- 📦 Docker
+- ☸️ Kubernetes
+- 📊 Prometheus
+- 🧪 Flask (for Web UI)
+- 🧱 Terraform (for infra-as-code)
+
+## Table of Contents
+- [Overview](#overview)
+- [The Inspiration](#the-inspiration)
+- [Features](#features)
+- [Web UI](#web-ui)
+- [Multi-Object Tracking (MOT) with DeepSORT](#multi-object-tracking-mot-with-deepsort)
+- [Setup Instructions](#setup-instructions)
+- [How It Works](#how-it-works)
+- [Observability Metrics](#observability-metrics)
+- [Potential Improvements](#potential-improvements)
+- [License](#license)
+- [Author](#author)
+
+
 ## Overview
 
 This project implements real-time object detection using YOLOv8 and streams the processed video over a network. The server captures video from a webcam, performs object detection, and sends the processed frames to a client for display. Additionally, it integrates observability features using Prometheus to monitor system performance and model inference metrics.
 
 Ona Vision is a full MLOps pipeline, covering the complete lifecycle of a machine learning model, from training to deployment, monitoring, and scaling. It leverages Docker, Kubernetes, and GitOps to ensure a scalable and reliable production system for object detection and monitoring.
-
-<p align="center">
   
 
-https://github.com/user-attachments/assets/2263076d-61f8-4ba1-9986-2fc40656acb4
+<p align="center">
+  <img width="700" alt="demo" src="https://github.com/user-attachments/assets/2263076d-61f8-4ba1-9986-2fc40656acb4" />
+</p>
 
 
 </p>
 
 ### The Inspiration
 
-Ona Vision was born out of a frustrating and unfortunate experience I had. I lost—or possibly had—my **AirPods stolen** at my university library. In an attempt to recover them, I spent nearly an hour in the CCTV office scrubbing through days of footage, trying to figure out what time I was at the library and if the AirPods could be spotted in any frame.
+Ona Vision was born out of a frustrating and unfortunate experience I had. I lost — or possibly had my AirPods stolen — at my university library. In an attempt to recover them, I spent nearly an hour in the CCTV office scrubbing through days of footage, trying to figure out what time I was at the library and if the AirPods could be spotted in any frame.
 
 The process was tedious and inefficient. Manually reviewing security footage without any intelligent filtering or automation felt like looking for a needle in a haystack. Unfortunately, I never found my AirPods—but I did walk away with an idea.
 
@@ -46,7 +72,8 @@ The process was tedious and inefficient. Manually reviewing security footage wit
   - Detection confidence and per-class object count
 
 ## Web UI
-You can now launch the detection system and view results from your browser using Flask.
+You can now launch the detection system and view results from your browser using FastAPI.
+
 <img width="1440" alt="Screenshot 2025-06-26 at 01 32 37" src="https://github.com/user-attachments/assets/029088ab-e3cd-4b42-aa75-ff9d30643e2b" />
 
 
@@ -54,7 +81,7 @@ You can now launch the detection system and view results from your browser using
 ### To Run the Web UI:
 ```bash
 cd ui
-python app.py
+uvicorn app:app --reload
 ```
 Then visit http://localhost:5000 in your browser.
 
@@ -94,19 +121,11 @@ Start the server which processes frames from webcam or other source
 python main.py
 ```
 
-Display real-time video
-```bash
-python client.py
-```
-
-### Web UI:
-To launch the web UI, navigate to the "ui" directory and run:
+Display real-time video in web UI (at localhost:8000)
 ```bash
 cd ui
-python app.py
+uvicorn app:app --reload
 ```
-Then visit http:localhost:5000 to view the results in browser.
-Metrics will be available at `http://localhost:8000/metrics`.
 
 ## How It Works
 1. The **server** captures frames from the webcam and runs YOLOv8 for object detection.
@@ -125,8 +144,6 @@ Metrics will be available at `http://localhost:8000/metrics`.
 | **Detection Confidence** | Average confidence of detected objects per frame |
 | **Class-wise Object Count** | Tracks the number of detected objects per class |
 
-## Demo
-https://github.com/user-attachments/assets/8246bf73-b810-48b7-9b8b-a855f730fb1f
 
 ## Potential Improvements
 - **Multi-object tracking** using DeepSORT
@@ -142,4 +159,5 @@ This project is open-source under the **Apache 2.0 License**.
 Josiah Mbao – Software Engineer | MLOps Developer  
 🔗 GitHub | ✉️ josiahmbaomc@gmail.com
 
-
+---
+If you found this project useful, please ⭐ the repo to support the work!
