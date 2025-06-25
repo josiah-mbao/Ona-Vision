@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Video{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto bg-white p-6 rounded shadow">
+  <h1 class="text-2xl font-semibold mb-4 text-center text-indigo-700">Upload a Video</h1>
+
+  <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data" class="space-y-4">
+    <label class="block">
+      <span class="text-gray-700">Select Video File</span>
+      <input
+        type="file"
+        name="video_file"
+        accept="video/*"
+        required
+        class="mt-1 block w-full text-sm text-gray-500
+               file:mr-4 file:py-2 file:px-4
+               file:rounded file:border-0
+               file:text-sm file:font-semibold
+               file:bg-indigo-100 file:text-indigo-700
+               hover:file:bg-indigo-200
+      "/>
+    </label>
+
+    <button
+      type="submit"
+      class="w-full bg-indigo-600 text-white font-semibold py-2 rounded hover:bg-indigo-700 transition"
+    >
+      Upload
+    </button>
+  </form>
+</div>
+{% endblock %}

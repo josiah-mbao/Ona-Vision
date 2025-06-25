@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ona Vision - {% block title %}{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="/" class="text-xl font-bold text-indigo-600 hover:text-indigo-700">Ona Vision</a>
+      <nav class="space-x-6 text-gray-700">
+        <a href="/upload" class="hover:text-indigo-600">Upload Video</a>
+        <a href="/videos" class="hover:text-indigo-600">Videos</a>
+        <a href="/search" class="hover:text-indigo-600">Search</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="flex-grow container mx-auto px-4 py-8">
+    {% block content %}
+    <!-- Content goes here -->
+    {% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t mt-10">
+    <div class="container mx-auto px-4 py-6 text-center text-gray-500 text-sm">
+      &copy; 2025 Ona Vision. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+</html>
