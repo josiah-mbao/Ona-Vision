@@ -3,6 +3,9 @@ venv/
 test_env/
 .env
 
+# Node.js dependencies
+node_modules/
+
 # Ignore compiled files
 __pycache__/
 *.pyc

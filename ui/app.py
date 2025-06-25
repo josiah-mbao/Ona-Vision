@@ -1,105 +1,50 @@
-"""
-This script sets up a Flask web application that streams video frames
-from a socket connection. It connects to a server, receives video frames,
-and serves them over HTTP. It also provides an endpoint to fetch statistics
-like FPS and detection count."""
-import struct
-import socket
-import pickle
+from fastapi import FastAPI, WebSocket, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 import cv2
-import requests
-from flask import Flask, Response, render_template, jsonify
+import base64
+import time
 
-app = Flask(__name__)
+app = FastAPI()
 
-# Socket connection to the server
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(("localhost", 8001))
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
-
-def recv_exact(sock, size):
-    """Receive exactly 'size' bytes from the socket."""
-    buffer = b""
-    while len(buffer) < size:
-        try:
-            packet = sock.recv(size - len(buffer))
-            if not packet:
-                return None
-            buffer += packet
-        except Exception as e:
-            print(f"Error receiving data: {e}")
-            return None
-    return buffer
+cap = cv2.VideoCapture(0)  # or your video file
 
 
-def generate_video():
-    """Generate video frames from the socket connection."""
+@app.get("/", response_class=HTMLResponse)
+async def get(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
+@app.websocket("/ws/video")
+async def video_stream(websocket: WebSocket):
+    await websocket.accept()
+    prev_time = time.time()
     while True:
-        try:
-            # Receive the message size
-            packed_msg_size = recv_exact(client_socket, struct.calcsize("Q"))
-            if not packed_msg_size:
-                print("No data received, closing connection.")
-                break
+        success, frame = cap.read()
+        if not success:
+            continue
 
-            # Unpack the message size
-            msg_size = struct.unpack("Q", packed_msg_size)[0]
-            frame_data = recv_exact(client_socket, msg_size)
-            if not frame_data:
-                print("No frame data received, closing connection.")
-                break
+        # Encode frame
+        _, buffer = cv2.imencode('.jpg', frame)
+        frame_b64 = base64.b64encode(buffer).decode('utf-8')
 
-            # Deserialize the frame
-            frame = pickle.loads(frame_data)
+        # FPS calculation
+        curr_time = time.time()
+        fps = round(1 / (curr_time - prev_time), 2)
+        prev_time = curr_time
 
-            # Convert the frame to JPEG
-            ret, jpeg = cv2.imencode('.jpg', frame)
-            if not ret:
-                print("Failed to encode frame to JPEG.")
-                continue
+        # Example stats
+        payload = {
+            "frame": frame_b64,
+            "stats": {
+                "model": "OnaNet v1.0",
+                "fps": fps,
+                "detections": "None"  # Replace with real detections later
+            }
+        }
 
-            frame_bytes = jpeg.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n\r\n')
-        except Exception as e:
-            print(f"Error in video generation: {e}")
-            break
-
-
-@app.route('/video_feed')
-def video_feed():
-    """This is the video feed route."""
-    return Response(generate_video(),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
-
-
-@app.route("/")
-def index():
-    """Render the main page."""
-    return render_template("index.html")
-
-
-@app.route("/stats")
-def stats():
-    """Fetch and return the FPS and detection count from the server."""
-    try:
-        response = requests.get("http://localhost:8000/metrics")
-        metrics = response.text
-
-        fps = detections = None
-        for line in metrics.splitlines():
-            if line.startswith("fps "):
-                fps = float(line.split()[1])
-            elif line.startswith("detected_objects "):
-                detections = int(float(line.split()[1]))
-
-        return jsonify({
-            "fps": round(fps, 2) if fps else "--",
-            "detections": detections if detections is not None else "--"
-        })
-    except requests.exceptions.RequestException:
-        return jsonify({"fps": "--", "detections": "--"})
-
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5002, debug=True, threaded=True)
+        await websocket.send_json(payload)

@@ -1,90 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Ona Vision | Live Detection</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <style>
-        .dark body {
-            background-color: #1a202c;
-            color: white;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Ona Vision UI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/static/css/styles.css" />
+  <script src="/static/js/video.js" defer></script>
 </head>
-<body class="flex flex-col min-h-screen">
 
-    <!-- Navbar -->
-    <nav class="bg-gray-800 text-white px-6 py-4 flex justify-between items-center shadow-md">
-        <h1 class="text-2xl font-bold">Ona Vision</h1>
-        <button onclick="toggleDarkMode()" class="bg-gray-700 px-3 py-1 rounded hover:bg-gray-600">
-            Toggle Dark Mode
-        </button>
-    </nav>
+<body class="bg-gradient-to-br from-gray-50 to-blue-50 text-gray-800 font-sans min-h-screen">
 
-    <!-- Main Content -->
-    <div class="flex-grow p-6 grid md:grid-cols-2 gap-6">
+  <!-- Navbar -->
+  <header class="w-full backdrop-blur-md bg-white/70 border-b border-gray-200 shadow-sm sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-blue-600">Ona Vision</h1>
+      <span class="text-sm text-gray-600">v1.0.0</span>
+    </div>
+  </header>
 
-        <!-- Video Feed Section -->
-        <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md">
-            <h2 class="text-xl font-semibold mb-4 text-white">Live Video Feed</h2>
-            <img id="videoFeed" src="{{ url_for('video_feed') }}" alt="Live Feed" class="w-full rounded shadow" />
-            <div class="mt-4 flex gap-4">
-                <button onclick="startStream()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Start</button>
-                <button onclick="stopStream()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">Stop</button>
-            </div>
-        </div>
+  <main class="max-w-5xl mx-auto px-6 py-12 flex flex-col items-center">
 
-        <!-- Sidebar / Info Panel -->
-        <div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md">
-            <h2 class="text-xl font-semibold mb-4 text-white">Model Info</h2>
-            <ul class="list-disc list-inside space-y-2 text-sm text-white">
-                <li><strong>Model:</strong> YOLOv5s / YOLOv8n</li>
-                <li><strong>Status:</strong> Running</li>
-                <li><strong>FPS:</strong> <span id="fps">--</span></li>
-                <li><strong>Detections:</strong> <span id="detections">--</span></li>
-                <li><strong>Time:</strong> <span id="time">--</span></li>
-            </ul>
-        </div>
+    <!-- Title -->
+    <h2 class="text-4xl md:text-5xl font-extrabold text-blue-700 mb-8 text-center animate-fade-in">
+      Live Video Stream Dashboard
+    </h2>
 
+    <!-- Video Container -->
+    <div id="video-container" class="relative rounded-xl overflow-hidden border-4 border-blue-500 shadow-xl animate-glow">
+      <img id="video" alt="Video Stream" width="640" class="block" />
+      <div class="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
+        Streaming...
+      </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-center text-white p-4">
-        © 2025 Ona Vision | Built with ❤️ in Flask
-    </footer>
-
-    <!-- JS -->
-    <script>
-        function toggleDarkMode() {
-            document.documentElement.classList.toggle('dark');
-        }
-
-        function startStream() {
-            document.getElementById("videoFeed").src = "{{ url_for('video_feed') }}";
-        }
-
-        function stopStream() {
-            document.getElementById("videoFeed").src = "";
-        }
-
-        function updateClock() {
-            const now = new Date();
-            document.getElementById("time").textContent = now.toLocaleTimeString();
-        }
-
-        setInterval(() => {
-            fetch('/stats')
-                .then(res => res.json())
-                .then(data => {
-                    document.getElementById('fps').textContent = data.fps;
-                    document.getElementById('detections').textContent = data.detections;
-                });
-        }, 1000);
-    </script>
+    <!-- Stats Box -->
+    <section id="stats-box" class="mt-10 w-full max-w-lg bg-white shadow-md rounded-2xl p-6 animate-fade-in-up">
+      <h3 class="text-xl font-semibold text-gray-700 mb-4 border-b pb-2">🔍 Stats</h3>
+      <div class="space-y-2 text-sm">
+        <p><span class="font-medium text-gray-600">Model:</span> <span id="model" class="text-gray-800">Loading...</span></p>
+        <p><span class="font-medium text-gray-600">FPS:</span> <span id="fps" class="text-gray-800">Loading...</span></p>
+        <p><span class="font-medium text-gray-600">Detections:</span> <span id="detections" class="text-gray-800">Loading...</span></p>
+      </div>
+    </section>
+  </main>
 
 </body>
 </html>
