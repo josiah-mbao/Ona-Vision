@@ -5,9 +5,10 @@ from fastapi.templating import Jinja2Templates
 import cv2
 import base64
 import time
+from auth.routes import router as auth_router
 
 app = FastAPI()
-
+app.include_router(auth_router)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
