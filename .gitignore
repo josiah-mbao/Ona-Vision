@@ -1,3 +1,5 @@
+# Ignore node stuff
+**/node_modules/
 # Ignore Python virtual environments
 venv/
 test_env/
