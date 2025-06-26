@@ -30,7 +30,13 @@ jobs:
         source venv/bin/activate
         pip install -r requirements.txt
 
-    # Step 4: Run tests
+    # Step 4: Lint the code with flake8
+    - name: Lint with pylint
+      run: |
+        pip install pylint
+        pylint server/ client/ ui/ --exit-zero
+
+    # Step 5: Run tests
     - name: Run tests
       run: |
         source venv/bin/activate
