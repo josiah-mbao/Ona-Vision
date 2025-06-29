@@ -5,17 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ona Vision - {% block title %}{% endblock %}</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- Add Alpine.js for simple interactivity -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col">
+<body class="bg-gray-50 min-h-screen flex flex-col" x-data="{ isLoggedIn: false }" x-init="checkAuth()">
 
   <!-- Navbar -->
   <header class="bg-white shadow">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
       <a href="/" class="text-xl font-bold text-indigo-600 hover:text-indigo-700">Ona Vision</a>
-      <nav class="space-x-6 text-gray-700">
-        <a href="/upload" class="hover:text-indigo-600">Upload Video</a>
-        <a href="/videos" class="hover:text-indigo-600">Videos</a>
-        <a href="/search" class="hover:text-indigo-600">Search</a>
+      <nav class="flex items-center space-x-6 text-gray-700">
+        <template x-if="isLoggedIn">
+          <div class="flex items-center space-x-6">
+            <a href="/upload" class="hover:text-indigo-600">Upload Video</a>
+            <a href="/videos" class="hover:text-indigo-600">Videos</a>
+            <a href="/search" class="hover:text-indigo-600">Search</a>
+            <button @click="logout" class="text-white bg-red-500 px-3 py-1 rounded hover:bg-red-600 text-sm">
+              Logout
+            </button>
+          </div>
+        </template>
+        <template x-if="!isLoggedIn">
+          <div class="flex items-center space-x-4">
+            <a href="/login" class="text-white bg-indigo-500 px-3 py-1 rounded hover:bg-indigo-600 text-sm">
+              Login
+            </a>
+            <a href="/signup" class="text-white bg-green-500 px-3 py-1 rounded hover:bg-green-600 text-sm">
+              Sign Up
+            </a>
+          </div>
+        </template>
       </nav>
     </div>
   </header>
@@ -33,6 +52,23 @@
       &copy; 2025 Ona Vision. All rights reserved.
     </div>
   </footer>
+
+  <script>
+    function checkAuth() {
+      const token = localStorage.getItem('access_token');
+      this.isLoggedIn = !!token;
+      
+      // If not logged in and trying to access protected page, redirect to login
+      if (!this.isLoggedIn && !['/login', '/signup'].includes(window.location.pathname)) {
+        window.location.href = '/login';
+      }
+    }
+    
+    function logout() {
+      localStorage.removeItem('access_token');
+      window.location.href = '/login';
+    }
+  </script>
 
 </body>
 </html>
