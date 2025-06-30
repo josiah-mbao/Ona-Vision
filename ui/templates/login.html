@@ -58,6 +58,9 @@
                 });
                 
                 if (response.ok) {
+                    const data = await response.json();
+                    document.cookie = `access_token=${data.access_token}; path=/; max-age=1800`;
+                    alert('Login successful!');
                     window.location.href = '/';
                 } else {
                     const error = await response.json();
