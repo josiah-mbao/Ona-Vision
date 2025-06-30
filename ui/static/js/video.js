@@ -1,15 +1,13 @@
-// Only run checkAuth on / route
+let ws = null; // global reference to the WebSocket
+
 async function checkAuth() {
     if (window.location.pathname !== '/') {
-        // We're on login or signup—no check needed
         return true;
     }
-
     try {
         const response = await fetch('/auth/me', {
             credentials: 'include'
         });
-        
         if (!response.ok) {
             console.warn("Auth check failed. Redirecting to /login.");
             window.location.href = '/login';
@@ -23,9 +21,14 @@ async function checkAuth() {
     }
 }
 
-// Main function to initialize video stream
 async function initVideoStream() {
     if (window.location.pathname !== '/') {
+        return;
+    }
+
+    // Don't open multiple connections
+    if (ws && ws.readyState === WebSocket.OPEN) {
+        console.warn("WebSocket already open.");
         return;
     }
 
@@ -34,23 +37,15 @@ async function initVideoStream() {
 
     const videoElement = document.getElementById("video");
     if (!videoElement) {
-        console.warn("No video element found on this page. Skipping video stream.");
+        console.warn("No video element found on this page.");
         return;
     }
 
-    const token = document.cookie.split('; ')
-        .find(row => row.startsWith('access_token='))
-        ?.split('=')[1];
-
-    if (!token) {
-        console.warn("No access token cookie found. Redirecting to /login.");
-        window.location.href = '/login';
-        return;
-    }
-
-    const ws = new WebSocket(`ws://${window.location.host}/ws/video`);
-
-    ws.onmessage = function(event) {
+    ws = new WebSocket(`ws://${window.location.host}/ws/video`);
+    
+    ws.onopen = () => console.log("✅ WebSocket connected");
+    
+    ws.onmessage = (event) => {
         const data = JSON.parse(event.data);
         videoElement.src = `data:image/jpeg;base64,${data.frame}`;
         document.getElementById("model").textContent = data.stats.model;
@@ -58,24 +53,26 @@ async function initVideoStream() {
         document.getElementById("detections").textContent = data.stats.detections;
     };
 
-    ws.onopen = () => console.log("✅ WebSocket connected");
     ws.onerror = (e) => {
         console.error("❌ WebSocket error", e);
     };
+
     ws.onclose = () => {
         console.log("🔌 WebSocket closed");
-        setTimeout(initVideoStream, 2000);
     };
 }
 
-// Logout setup
 function setupLogout() {
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', async () => {
             try {
-                await fetch('/auth/logout', {
-                    method: 'POST',
+                if (ws) {
+                    ws.close();
+                    ws = null;
+                }
+                await fetch('/logout', {
+                    method: 'GET',
                     credentials: 'include'
                 });
                 window.location.href = '/login';
@@ -86,10 +83,30 @@ function setupLogout() {
     }
 }
 
-// Run only on relevant pages
+// Optional toggle button logic
+function setupToggleStream() {
+    const toggleBtn = document.getElementById('toggleStreamBtn');
+    if (!toggleBtn) return;
+
+    let isStreaming = true;
+
+    toggleBtn.addEventListener('click', () => {
+        if (isStreaming) {
+            ws?.close();
+            isStreaming = false;
+            toggleBtn.textContent = 'Start Stream';
+        } else {
+            initVideoStream();
+            isStreaming = true;
+            toggleBtn.textContent = 'Stop Stream';
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     if (window.location.pathname === '/') {
         initVideoStream();
     }
     setupLogout();
+    setupToggleStream();
 });

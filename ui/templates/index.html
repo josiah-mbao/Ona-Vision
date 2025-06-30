@@ -35,6 +35,9 @@
       <div class="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
         Streaming...
       </div>
+      <button id="toggleStreamBtn" class="mt-4 bg-green-500 text-white px-4 py-2 rounded">
+        Start Stream
+      </button>
     </div>
 
     <!-- Stats Box -->
@@ -47,6 +50,11 @@
       </div>
     </section>
   </main>
-  
+    <script>
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      // Navigate to the logout route directly, which clears the cookie and redirects
+      window.location.href = '/logout';
+    });
+  </script>
 </body>
 </html>

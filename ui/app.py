@@ -1,6 +1,6 @@
 from fastapi import FastAPI, WebSocket, Request, Depends, HTTPException, Cookie
 from fastapi import FastAPI, WebSocket, Request, Depends, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.security import OAuth2PasswordBearer
@@ -32,13 +32,13 @@ async def get(request: Request, current_user: Optional[User] = Depends(get_curre
 
 @app.websocket("/ws/video")
 async def video_stream(websocket: WebSocket, token: Optional[str] = None):
-    # Simple token check for WebSocket
+    """ Simple token check for WebSocket"""
     if token:
         user = decode_access_token(token)
         if not user:
             await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
             return
-    
+
     await websocket.accept()
     prev_time = time.time()
     while True:
@@ -70,16 +70,19 @@ async def video_stream(websocket: WebSocket, token: Optional[str] = None):
 
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
+    """ Render login page """
     return templates.TemplateResponse("login.html", {"request": request})
 
 
 @app.get("/signup", response_class=HTMLResponse)
 async def signup_page(request: Request):
+    """ Render signup page """
     return templates.TemplateResponse("signup.html", {"request": request})
 
 
 @app.get("/logout")
 async def logout():
+    """ Handle user logout """
     response = RedirectResponse(url="/login")
     response.delete_cookie("access_token")
     return response
