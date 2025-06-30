@@ -20,7 +20,7 @@
 - 📦 Docker
 - ☸️ Kubernetes
 - 📊 Prometheus
-- 🧪 Flask (for Web UI)
+- 🧪 FastAPI (for Web UI)
 - 🧱 Terraform (for infra-as-code)
 
 ## Table of Contents
@@ -49,13 +49,12 @@ Ona Vision is a full MLOps pipeline, covering the complete lifecycle of a machin
 </p>
 
 
-</p>
 
 ### The Inspiration
 
 Ona Vision was born out of a frustrating and unfortunate experience I had. I lost — or possibly had my AirPods stolen — at my university library. In an attempt to recover them, I spent nearly an hour in the CCTV office scrubbing through days of footage, trying to figure out what time I was at the library and if the AirPods could be spotted in any frame.
 
-The process was tedious and inefficient. Manually reviewing security footage without any intelligent filtering or automation felt like looking for a needle in a haystack. Unfortunately, I never found my AirPods—but I did walk away with an idea.
+The process was slow and inefficient—like looking for a needle in a haystack. Unfortunately, I never found my AirPods, but I walked away with an idea.
 
 **Ona Vision** is my attempt to ensure others don’t have to go through that same helpless process. With object detection and tracking built in, this system can help people and institutions monitor and trace specific objects in real-time or recorded video streams. It’s my hope that this technology can make environments a little safer, and surveillance systems a lot smarter.
 
@@ -83,7 +82,7 @@ You can now launch the detection system and view results from your browser using
 cd ui
 uvicorn app:app --reload
 ```
-Then visit http://localhost:5000 in your browser.
+Then visit [http://localhost:8000](http://localhost:8000) in your browser.
 
 
 ## Multi-Object Tracking (MOT) with DeepSORT
@@ -146,10 +145,14 @@ uvicorn app:app --reload
 
 
 ## Potential Improvements
-- **Multi-object tracking** using DeepSORT
 - **Edge deployment** on a Raspberry Pi or Jetson Nano
 - **Cloud integration** to store detection data
-- **Web-based visualization** using Flask or FastAPI
+- **Web-based visualization** using FastAPI
+
+## Contributing
+Contributions are welcome! If you find a bug or want to add a feature, feel free to open an issue or submit a pull request.
+
+Please make sure to discuss big changes in an issue first to ensure alignment.
 
 ## License
 This project is open-source under the **Apache 2.0 License**.
